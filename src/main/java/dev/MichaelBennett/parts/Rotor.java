@@ -18,6 +18,60 @@ public class Rotor {
         this.nextRotor = null;
         this.previousRotor = null;
         this.reflector = null;
+
+        front.add(0);
+        front.add(1);
+        front.add(2);
+        front.add(3);
+        front.add(4);
+        front.add(5);
+        front.add(6);
+        front.add(7);
+        front.add(8);
+        front.add(9);
+        front.add(10);
+        front.add(11);
+        front.add(12);
+        front.add(13);
+        front.add(14);
+        front.add(15);
+        front.add(16);
+        front.add(17);
+        front.add(18);
+        front.add(19);
+        front.add(20);
+        front.add(21);
+        front.add(22);
+        front.add(23);
+        front.add(24);
+        front.add(25);
+
+        back.add(0);
+        back.add(1);
+        back.add(2);
+        back.add(3);
+        back.add(4);
+        back.add(5);
+        back.add(6);
+        back.add(7);
+        back.add(8);
+        back.add(9);
+        back.add(10);
+        back.add(11);
+        back.add(12);
+        back.add(13);
+        back.add(14);
+        back.add(15);
+        back.add(16);
+        back.add(17);
+        back.add(18);
+        back.add(19);
+        back.add(20);
+        back.add(21);
+        back.add(22);
+        back.add(23);
+        back.add(24);
+        back.add(25);
     }
 
     public Rotor(int step, ArrayList<Integer> front, ArrayList<Integer> back) {
