@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Rotor {
 
     int step;
+    int turnover;
     ArrayList<Integer> front;
     ArrayList<Integer> back;
     Rotor nextRotor;
@@ -13,6 +14,7 @@ public class Rotor {
 
     public Rotor() {
         this.step = 0;
+        this.turnover = 0;
         this.front = new ArrayList<Integer>();
         this.back = new ArrayList<Integer>();
         this.nextRotor = null;
@@ -74,8 +76,9 @@ public class Rotor {
         back.add(25);
     }
 
-    public Rotor(int step, ArrayList<Integer> front, ArrayList<Integer> back) {
+    public Rotor(int step, int turnover, ArrayList<Integer> front, ArrayList<Integer> back) {
         this.step = step;
+        this.turnover = turnover;
         this.front = front;
         this.back = back;
         this.nextRotor = null;
@@ -99,27 +102,25 @@ public class Rotor {
 
     public int signalFrontToBack(int in) {
         if (in < 0) return -1;
-        in += this.step;
-        if (in >= 26) in %= 26;
-
         int index = this.front.indexOf(in);
+        if (index < 0) return -1;
+        index += this.step;
+        index %= 26;
         return this.back.get(index);
     }
 
     public int signalBackToFront(int in){
         if (in < 0) return -1;
-        in -= this.step;
-        if (in >= 26) in %= 26;
-        if (in < 0) in += 26;
-
         int index = this.back.indexOf(in);
+        if (index < 0) return -1;
+        index -= this.step;
+        if (index < 0) index += 26;
         return this.front.get(index);
     }
 
     public int inputSignal(int in){
         int output;
         int shifted = this.signalFrontToBack(in);
-        System.out.println(shifted);
         if (this.nextRotor != null){
             output = this.nextRotor.inputSignal(shifted);
         }
@@ -134,6 +135,10 @@ public class Rotor {
 
     public int stepUp(){
         this.step++;
+        if (this.step == this.turnover && this.nextRotor != null){
+            this.nextRotor.stepUp();
+        }
+        this.step %= 26;
         return this.step;
     }
 

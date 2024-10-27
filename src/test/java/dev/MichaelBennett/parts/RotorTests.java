@@ -26,7 +26,7 @@ public class RotorTests {
             backArangement.add(c - 65);
         }
 
-        testRotor2 = new Rotor(0, frontArangement, backArangement);
+        testRotor2 = new Rotor(0, 17, frontArangement, backArangement);
 
         reflectedPairs = new HashMap<>();
         int index = 0;
@@ -39,6 +39,7 @@ public class RotorTests {
 
     @Test
     void testRotorConstructor(){
+        testRotor2.setStep(0);
         Assertions.assertEquals(4, testRotor2.signalFrontToBack(0));
         Assertions.assertEquals(10, testRotor2.signalFrontToBack(1));
         Assertions.assertEquals(12, testRotor2.signalFrontToBack(2));
@@ -128,6 +129,13 @@ public class RotorTests {
     }
 
     @Test
+    void testSignalFrontToBackAndBackToFront(){
+        testRotor2.setStep(0);
+        Assertions.assertEquals(4, testRotor2.signalFrontToBack(0));
+        Assertions.assertEquals(0, testRotor2.signalBackToFront(4));
+    }
+
+    @Test
     void testSignalFrontToBackDefaultConstructorNegativeValues() {
         Assertions.assertEquals(-1, testRotor.signalFrontToBack(-1));
         Assertions.assertEquals(-1, testRotor.signalFrontToBack(-999));
@@ -135,8 +143,8 @@ public class RotorTests {
 
     @Test
     void testSignalFrontToBackDefaultConstructorOutOfRangeValues() {
-        Assertions.assertEquals(0, testRotor.signalFrontToBack(26));
-        Assertions.assertEquals(4, testRotor.signalFrontToBack(30));
+        Assertions.assertEquals(-1, testRotor.signalFrontToBack(26));
+        Assertions.assertEquals(-1, testRotor.signalFrontToBack(30));
     }
 
     @Test
@@ -147,8 +155,8 @@ public class RotorTests {
 
     @Test
     void testSignalBackToFrontDefaultConstructorOutOfRangeValues() {
-        Assertions.assertEquals(0, testRotor.signalBackToFront(26));
-        Assertions.assertEquals(4, testRotor.signalBackToFront(30));
+        Assertions.assertEquals(-1, testRotor.signalBackToFront(26));
+        Assertions.assertEquals(-1, testRotor.signalBackToFront(30));
     }
 
     @Test
@@ -190,6 +198,7 @@ public class RotorTests {
 
     @Test
     void testInputSignalHappyPath(){
+        testRotor2.setStep(0);
         testRotor.setNextRotor(testRotor2);
         testRotor2.setPreviousRotor(testRotor);
 
@@ -198,6 +207,7 @@ public class RotorTests {
 
     @Test
     void testInputSignalHappyPathWithReflector(){
+        testRotor2.setStep(0);
         testRotor.setNextRotor(testRotor2);
         testRotor2.setPreviousRotor(testRotor);
         Reflector reflector = new Reflector(reflectedPairs);
@@ -208,6 +218,24 @@ public class RotorTests {
 
     @Test
     void testInputSignalWithNoConnections(){
+        testRotor2.setStep(0);
         Assertions.assertEquals(4, testRotor2.inputSignal(0));
+    }
+
+    @Test
+    void testSignalFrontToBackAndBackToFrontWithStepping(){
+        testRotor2.setStep(0);
+        Assertions.assertEquals(4, testRotor2.signalFrontToBack(0));
+        Assertions.assertEquals(0, testRotor2.signalBackToFront(4));
+
+        testRotor2.stepUp();
+
+        Assertions.assertEquals(10, testRotor2.signalFrontToBack(0));
+        Assertions.assertEquals(0, testRotor2.signalBackToFront(10));
+
+        testRotor2.stepUp();
+
+        Assertions.assertEquals(12, testRotor2.signalFrontToBack(0));
+        Assertions.assertEquals(0, testRotor2.signalBackToFront(12));
     }
 }

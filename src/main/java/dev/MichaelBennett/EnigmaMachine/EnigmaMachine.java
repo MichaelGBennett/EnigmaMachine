@@ -5,6 +5,7 @@ import dev.MichaelBennett.parts.Rotor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class EnigmaMachine {
 
@@ -32,6 +33,22 @@ public class EnigmaMachine {
         connectRotors(secondRotor, thirdRotor);
         thirdRotor.setReflector(reflector);
 
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("please write your message");
+        String input = in.nextLine();
+        StringBuilder ciphertext = new StringBuilder();
+        for (char c: input.toUpperCase().toCharArray()){
+            if (c >= 65 && c <= 90) {
+                firstRotor.stepUp();
+                char nextLetter = (char) (firstRotor.inputSignal(c - 65) + 65);
+                ciphertext.append(nextLetter);
+            }
+            else if (c == ' '){
+                ciphertext.append(' ');
+            }
+        }
+        System.out.println(ciphertext);
     }
 
     private static void handleCommandLineArgs(String[] args){
@@ -45,9 +62,9 @@ public class EnigmaMachine {
             ArrayList<Integer> rotor2Positions = getRotorPositions(2);
             ArrayList<Integer> rotor3Positions = getRotorPositions(3);
 
-            firstRotor = new Rotor(0, frontPositions, rotor1Positions);
-            secondRotor = new Rotor(0, frontPositions, rotor2Positions);
-            thirdRotor = new Rotor(0, frontPositions, rotor3Positions);
+            firstRotor = new Rotor(0, 0, frontPositions, rotor1Positions);
+            secondRotor = new Rotor(0, 0, frontPositions, rotor2Positions);
+            thirdRotor = new Rotor(0, 0, frontPositions, rotor3Positions);
         }
         else {
             int rotorNum1 = Integer.parseInt(args[0]);
@@ -63,9 +80,9 @@ public class EnigmaMachine {
             ArrayList<Integer> rotor2Positions = getRotorPositions(rotorNum2);
             ArrayList<Integer> rotor3Positions = getRotorPositions(rotorNum3);
 
-            firstRotor = new Rotor(rotorStep1, frontPositions, rotor1Positions);
-            secondRotor = new Rotor(rotorStep2, frontPositions, rotor2Positions);
-            thirdRotor = new Rotor(rotorStep3, frontPositions, rotor3Positions);
+            firstRotor = new Rotor(rotorStep1, getRotorTurnoverPositions(rotorNum1), frontPositions, rotor1Positions);
+            secondRotor = new Rotor(rotorStep2, getRotorTurnoverPositions(rotorNum2), frontPositions, rotor2Positions);
+            thirdRotor = new Rotor(rotorStep3, getRotorTurnoverPositions(rotorNum3), frontPositions, rotor3Positions);
         }
     }
 
@@ -99,6 +116,22 @@ public class EnigmaMachine {
             break;
         }
         return result;
+    }
+
+    private static int getRotorTurnoverPositions(int rotorNum){
+        switch (rotorNum){
+            case 1:
+                return 16;
+            case 2:
+                return 4;
+            case 3:
+                return 21;
+            case 4:
+                return 9;
+            case 5:
+                return 25;
+        }
+        return 0;
     }
 
     private static void connectRotors (Rotor firstRotor, Rotor secondRotor){
