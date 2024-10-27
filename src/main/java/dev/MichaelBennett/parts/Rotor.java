@@ -136,6 +136,9 @@ public class Rotor {
 
     public int stepUp(){
         this.step++;
+        if (this.step == this.turnover && this.nextRotor != null){
+            this.nextRotor.stepUp();
+        }
         return this.step;
     }
 
