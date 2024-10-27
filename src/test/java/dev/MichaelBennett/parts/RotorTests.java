@@ -5,11 +5,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RotorTests {
 
     Rotor testRotor = new Rotor();
     static Rotor testRotor2;
+    static HashMap<Integer, Integer> reflectedPairs;
 
     @BeforeAll
     static void setUp(){
@@ -25,6 +27,14 @@ public class RotorTests {
         }
 
         testRotor2 = new Rotor(0, frontArangement, backArangement);
+
+        reflectedPairs = new HashMap<>();
+        int index = 0;
+        String reflectorValues = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
+        for (char c : reflectorValues.toCharArray()){
+            reflectedPairs.put(index, c - 65);
+            index++;
+        }
     }
 
     @Test
@@ -184,6 +194,15 @@ public class RotorTests {
         testRotor2.setPreviousRotor(testRotor);
 
         Assertions.assertEquals(4, testRotor.inputSignal(0));
+    }
 
+    @Test
+    void testInputSignalHappyPathWithReflector(){
+        testRotor.setNextRotor(testRotor2);
+        testRotor2.setPreviousRotor(testRotor);
+        Reflector reflector = new Reflector(reflectedPairs);
+        testRotor2.setReflector(reflector);
+
+        Assertions.assertEquals(21, testRotor.inputSignal(0));
     }
 }
