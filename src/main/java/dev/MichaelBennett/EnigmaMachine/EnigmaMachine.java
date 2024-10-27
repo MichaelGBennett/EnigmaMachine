@@ -1,8 +1,10 @@
 package dev.MichaelBennett.EnigmaMachine;
 
+import dev.MichaelBennett.parts.Reflector;
 import dev.MichaelBennett.parts.Rotor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EnigmaMachine {
 
@@ -19,6 +21,17 @@ public class EnigmaMachine {
 
     public static void main (String[] args){
         handleCommandLineArgs(args);
+        HashMap<Integer, Integer> reflectorSettings = new HashMap<>();
+        int index = 0;
+        for (char c: reflectorUKWCValues.toCharArray()){
+            reflectorSettings.put(index, c-65);
+            index++;
+        }
+        Reflector reflector = new Reflector(reflectorSettings);
+        connectRotors(firstRotor, secondRotor);
+        connectRotors(secondRotor, thirdRotor);
+        thirdRotor.setReflector(reflector);
+
     }
 
     private static void handleCommandLineArgs(String[] args){
@@ -86,6 +99,11 @@ public class EnigmaMachine {
             break;
         }
         return result;
+    }
+
+    private static void connectRotors (Rotor firstRotor, Rotor secondRotor){
+        firstRotor.setNextRotor(secondRotor);
+        secondRotor.setPreviousRotor(firstRotor);
     }
 
 }
