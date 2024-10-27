@@ -98,6 +98,7 @@ public class Rotor {
     }
 
     public int signalFrontToBack(int in) {
+        if (in < 0) return -1;
         in += this.step;
         if (in >= 26) in %= 26;
 
@@ -106,6 +107,7 @@ public class Rotor {
     }
 
     public int signalBackToFront(int in){
+        if (in < 0) return -1;
         in += this.step;
         if (in >= 26) in %= 26;
 
@@ -127,5 +129,14 @@ public class Rotor {
             return Integer.MIN_VALUE;
         }
         return this.signalBackToFront(output);
+    }
+
+    public int stepUp(){
+        this.step++;
+        return this.step;
+    }
+
+    public void setStep(int step){
+        this.step = step;
     }
 }
