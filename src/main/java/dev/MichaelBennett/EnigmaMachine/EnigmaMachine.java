@@ -40,9 +40,9 @@ public class EnigmaMachine {
         StringBuilder ciphertext = new StringBuilder();
         for (char c: input.toUpperCase().toCharArray()){
             if (c >= 65 && c <= 90) {
+                firstRotor.stepUp();
                 char nextLetter = (char) (firstRotor.inputSignal(c - 65) + 65);
                 ciphertext.append(nextLetter);
-                firstRotor.stepUp();
             }
             else if (c == ' '){
                 ciphertext.append(' ');
