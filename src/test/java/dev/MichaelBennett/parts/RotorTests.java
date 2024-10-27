@@ -26,7 +26,7 @@ public class RotorTests {
             backArangement.add(c - 65);
         }
 
-        testRotor2 = new Rotor(0, frontArangement, backArangement);
+        testRotor2 = new Rotor(0, 17, frontArangement, backArangement);
 
         reflectedPairs = new HashMap<>();
         int index = 0;

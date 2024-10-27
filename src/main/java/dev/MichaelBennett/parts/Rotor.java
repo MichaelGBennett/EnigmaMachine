@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Rotor {
 
     int step;
+    int turnover;
     ArrayList<Integer> front;
     ArrayList<Integer> back;
     Rotor nextRotor;
@@ -13,6 +14,7 @@ public class Rotor {
 
     public Rotor() {
         this.step = 0;
+        this.turnover = 0;
         this.front = new ArrayList<Integer>();
         this.back = new ArrayList<Integer>();
         this.nextRotor = null;
@@ -74,8 +76,9 @@ public class Rotor {
         back.add(25);
     }
 
-    public Rotor(int step, ArrayList<Integer> front, ArrayList<Integer> back) {
+    public Rotor(int step, int turnover, ArrayList<Integer> front, ArrayList<Integer> back) {
         this.step = step;
+        this.turnover = turnover;
         this.front = front;
         this.back = back;
         this.nextRotor = null;
