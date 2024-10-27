@@ -108,8 +108,9 @@ public class Rotor {
 
     public int signalBackToFront(int in){
         if (in < 0) return -1;
-        in += this.step;
+        in -= this.step;
         if (in >= 26) in %= 26;
+        if (in < 0) in += 26;
 
         int index = this.back.indexOf(in);
         return this.front.get(index);
@@ -122,7 +123,6 @@ public class Rotor {
             output = this.nextRotor.inputSignal(shifted);
         }
         else if (this.reflector != null){
-            //TODO come back to this after reflector is implemented
             output = this.reflector.reflectSignal(shifted);
         }
         else {
