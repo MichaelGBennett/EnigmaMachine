@@ -50,8 +50,30 @@ public class RotorTests {
     }
 
     @Test
-    void testStep() {
-        Assertions.assertEquals(-1, testRotor.signalFrontToBack(-1));
-        Assertions.assertEquals(-1, testRotor.signalFrontToBack(-999));
+    void testStepUpHappyPath() {
+        Assertions.assertEquals(0, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(25, testRotor.signalFrontToBack(25));
+
+        testRotor.stepUp();
+        Assertions.assertEquals(1, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(0, testRotor.signalFrontToBack(25));
+
+        testRotor.stepUp();
+        Assertions.assertEquals(2, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(1, testRotor.signalFrontToBack(25));
+
+        testRotor.stepUp();
+        Assertions.assertEquals(3, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(2, testRotor.signalFrontToBack(25));
+    }
+
+    @Test
+    void testSetStepHappyPath() {
+        Assertions.assertEquals(0, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(25, testRotor.signalFrontToBack(25));
+
+        testRotor.setStep(3);
+        Assertions.assertEquals(3, testRotor.signalFrontToBack(0));
+        Assertions.assertEquals(2, testRotor.signalFrontToBack(25));
     }
 }
