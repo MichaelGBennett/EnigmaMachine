@@ -205,4 +205,9 @@ public class RotorTests {
 
         Assertions.assertEquals(21, testRotor.inputSignal(0));
     }
+
+    @Test
+    void testInputSignalWithNoConnections(){
+        Assertions.assertEquals(4, testRotor2.inputSignal(0));
+    }
 }
