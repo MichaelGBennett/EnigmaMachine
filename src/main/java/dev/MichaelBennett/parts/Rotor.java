@@ -119,7 +119,6 @@ public class Rotor {
     public int inputSignal(int in){
         int output;
         int shifted = this.signalFrontToBack(in);
-        System.out.println(shifted);
         if (this.nextRotor != null){
             output = this.nextRotor.inputSignal(shifted);
         }

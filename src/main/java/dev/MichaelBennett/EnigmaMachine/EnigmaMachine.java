@@ -5,6 +5,7 @@ import dev.MichaelBennett.parts.Rotor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class EnigmaMachine {
 
@@ -32,6 +33,17 @@ public class EnigmaMachine {
         connectRotors(secondRotor, thirdRotor);
         thirdRotor.setReflector(reflector);
 
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("please write your message");
+        String input = in.next();
+        StringBuilder cyphertext = new StringBuilder();
+        for (char c: input.toUpperCase().toCharArray()){
+            char nextLetter = (char)(firstRotor.inputSignal(c-65) + 65);
+            cyphertext.append(nextLetter);
+            firstRotor.stepUp();
+        }
+        System.out.println(cyphertext);
     }
 
     private static void handleCommandLineArgs(String[] args){
