@@ -12,13 +12,21 @@ public class Rotor {
     Reflector reflector;
 
     public Rotor() {
-
+        this.step = 0;
+        this.front = new ArrayList<Integer>();
+        this.back = new ArrayList<Integer>();
+        this.nextRotor = null;
+        this.previousRotor = null;
+        this.reflector = null;
     }
 
     public Rotor(int step, ArrayList<Integer> front, ArrayList<Integer> back) {
         this.step = step;
         this.front = front;
         this.back = back;
+        this.nextRotor = null;
+        this.previousRotor = null;
+        this.reflector = null;
     }
 
     public void setNextRotor(Rotor nextRotor) {
