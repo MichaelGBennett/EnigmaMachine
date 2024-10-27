@@ -22,26 +22,38 @@ public class EnigmaMachine {
     }
 
     private static void handleCommandLineArgs(String[] args){
-        int rotorNum1 = Integer.parseInt(args[0]);
-        int rotorStep1 = Integer.parseInt(args[1]);
-
-        int rotorNum2 = Integer.parseInt(args[2]);
-        int rotorStep2 = Integer.parseInt(args[3]);
-
-        int rotorNum3 = Integer.parseInt(args[4]);
-        int rotorStep3 = Integer.parseInt(args[5]);
-
         ArrayList<Integer> frontPositions = new ArrayList<>();
-        for (int i = 0; i < 26; i++){
+        for (int i = 0; i < 26; i++) {
             frontPositions.add(i);
         }
-        ArrayList<Integer> rotor1Positions = getRotorPositions(rotorNum1);
-        ArrayList<Integer> rotor2Positions = getRotorPositions(rotorNum2);
-        ArrayList<Integer> rotor3Positions = getRotorPositions(rotorNum3);
+        if (args.length < 6){
+            System.err.println("not enough rotors specified. using default rotor settings");
+            ArrayList<Integer> rotor1Positions = getRotorPositions(1);
+            ArrayList<Integer> rotor2Positions = getRotorPositions(2);
+            ArrayList<Integer> rotor3Positions = getRotorPositions(3);
 
-        firstRotor = new Rotor(rotorStep1, frontPositions, rotor1Positions);
-        secondRotor = new Rotor(rotorStep2, frontPositions, rotor2Positions);
-        thirdRotor = new Rotor(rotorStep3, frontPositions, rotor3Positions);
+            firstRotor = new Rotor(0, frontPositions, rotor1Positions);
+            secondRotor = new Rotor(0, frontPositions, rotor2Positions);
+            thirdRotor = new Rotor(0, frontPositions, rotor3Positions);
+        }
+        else {
+            int rotorNum1 = Integer.parseInt(args[0]);
+            int rotorStep1 = Integer.parseInt(args[1]);
+
+            int rotorNum2 = Integer.parseInt(args[2]);
+            int rotorStep2 = Integer.parseInt(args[3]);
+
+            int rotorNum3 = Integer.parseInt(args[4]);
+            int rotorStep3 = Integer.parseInt(args[5]);
+
+            ArrayList<Integer> rotor1Positions = getRotorPositions(rotorNum1);
+            ArrayList<Integer> rotor2Positions = getRotorPositions(rotorNum2);
+            ArrayList<Integer> rotor3Positions = getRotorPositions(rotorNum3);
+
+            firstRotor = new Rotor(rotorStep1, frontPositions, rotor1Positions);
+            secondRotor = new Rotor(rotorStep2, frontPositions, rotor2Positions);
+            thirdRotor = new Rotor(rotorStep3, frontPositions, rotor3Positions);
+        }
     }
 
     private static ArrayList<Integer> getRotorPositions(int rotorNum){
