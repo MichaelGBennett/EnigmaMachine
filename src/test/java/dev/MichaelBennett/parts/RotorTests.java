@@ -1,11 +1,61 @@
 package dev.MichaelBennett.parts;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 public class RotorTests {
 
     Rotor testRotor = new Rotor();
+    static Rotor testRotor2;
+
+    @BeforeAll
+    static void setUp(){
+        ArrayList<Integer> frontArangement = new ArrayList<>();
+        ArrayList<Integer> backArangement = new ArrayList<>();
+
+        for (int i = 0; i < 26; i++){
+            frontArangement.add(i);
+        }
+        String enigma1rotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+        for (char c: enigma1rotorI.toCharArray()){
+            backArangement.add(c - 65);
+        }
+
+        testRotor2 = new Rotor(0, frontArangement, backArangement);
+    }
+
+    @Test
+    void testRotorConstructor(){
+        Assertions.assertEquals(4, testRotor2.signalFrontToBack(0));
+        Assertions.assertEquals(10, testRotor2.signalFrontToBack(1));
+        Assertions.assertEquals(12, testRotor2.signalFrontToBack(2));
+        Assertions.assertEquals(5, testRotor2.signalFrontToBack(3));
+        Assertions.assertEquals(11, testRotor2.signalFrontToBack(4));
+        Assertions.assertEquals(6, testRotor2.signalFrontToBack(5));
+        Assertions.assertEquals(3, testRotor2.signalFrontToBack(6));
+        Assertions.assertEquals(16, testRotor2.signalFrontToBack(7));
+        Assertions.assertEquals(21, testRotor2.signalFrontToBack(8));
+        Assertions.assertEquals(25, testRotor2.signalFrontToBack(9));
+        Assertions.assertEquals(13, testRotor2.signalFrontToBack(10));
+        Assertions.assertEquals(19, testRotor2.signalFrontToBack(11));
+        Assertions.assertEquals(14, testRotor2.signalFrontToBack(12));
+        Assertions.assertEquals(22, testRotor2.signalFrontToBack(13));
+        Assertions.assertEquals(24, testRotor2.signalFrontToBack(14));
+        Assertions.assertEquals(7, testRotor2.signalFrontToBack(15));
+        Assertions.assertEquals(23, testRotor2.signalFrontToBack(16));
+        Assertions.assertEquals(20, testRotor2.signalFrontToBack(17));
+        Assertions.assertEquals(18, testRotor2.signalFrontToBack(18));
+        Assertions.assertEquals(15, testRotor2.signalFrontToBack(19));
+        Assertions.assertEquals(0, testRotor2.signalFrontToBack(20));
+        Assertions.assertEquals(8, testRotor2.signalFrontToBack(21));
+        Assertions.assertEquals(1, testRotor2.signalFrontToBack(22));
+        Assertions.assertEquals(17, testRotor2.signalFrontToBack(23));
+        Assertions.assertEquals(2, testRotor2.signalFrontToBack(24));
+        Assertions.assertEquals(9, testRotor2.signalFrontToBack(25));
+    }
 
     @Test
     void testSignalFrontToBackDefaultConstructorHappyValues() {
@@ -126,5 +176,14 @@ public class RotorTests {
         testRotor.setStep(3);
         Assertions.assertEquals(3, testRotor.signalFrontToBack(0));
         Assertions.assertEquals(2, testRotor.signalFrontToBack(25));
+    }
+
+    @Test
+    void testInputSignalHappyPath(){
+        testRotor.setNextRotor(testRotor2);
+        testRotor2.setPreviousRotor(testRotor);
+
+        Assertions.assertEquals(4, testRotor.inputSignal(0));
+
     }
 }
