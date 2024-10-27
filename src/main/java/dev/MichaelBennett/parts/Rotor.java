@@ -102,20 +102,19 @@ public class Rotor {
 
     public int signalFrontToBack(int in) {
         if (in < 0) return -1;
-        in += this.step;
-        if (in >= 26) in %= 26;
-
         int index = this.front.indexOf(in);
+        if (index < 0) return -1;
+        index += this.step;
+        index %= 26;
         return this.back.get(index);
     }
 
     public int signalBackToFront(int in){
         if (in < 0) return -1;
-        in -= this.step;
-        if (in >= 26) in %= 26;
-        if (in < 0) in += 26;
-
         int index = this.back.indexOf(in);
+        if (index < 0) return -1;
+        index -= this.step;
+        if (index < 0) index += 26;
         return this.front.get(index);
     }
 
